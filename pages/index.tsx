@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import Button from "../components/ui/Button";
+import Button from "components/ui/Button";
 
 import Link from "next/link";
 
