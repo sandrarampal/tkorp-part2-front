@@ -1,4 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
+import Link from "next/link";
+import ListResult from "components/ui/ListResult";
 
 const getPersons = gql`
   query getPersons {
@@ -40,8 +42,12 @@ export default function Owners() {
               borderRadius: "5px",
             }}
           >
-            <h2>{person.firstName}</h2>
-            <h2>{person.lastName}</h2>
+            <Link href={`/owners/${person.id}`} passHref>
+              <ListResult
+                key={person.id}
+                name={`${person.firstName} ${person.lastName}`}
+              />
+            </Link>
           </li>
         ))}
       </ul>

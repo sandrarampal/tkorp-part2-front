@@ -1,7 +1,5 @@
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import { GetServerSideProps } from "next";
-import getClient from "lib/apollo-client";
 import { useRouter } from "next/router";
 
 const getAnimalById = gql`
@@ -42,17 +40,38 @@ export default function AnimalDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
+  //Attendre que le routeur soit prêt à afficher les résultats.
+  const isReady = router.isReady;
+
   const animalId = parseInt(id as string, 10);
   const { loading, error, data } = useQuery(getAnimalById, {
     variables: { id: animalId },
-    skip: !id || isNaN(animalId),
+    skip: !isReady || !id || isNaN(animalId),
   });
+
+  if (loading) return <p>Chargement des animaux...</p>;
+  if (error) return <p>Erreur : {error.message}</p>;
+
+  if (!isReady) {
+    return <p>Chargement des animaux...</p>;
+  }
+
+  const animal = data.animal;
+
+  const dateOnly = animal.dateOfBirth.slice(0, 10);
 
   return (
     <div>
       <h2>Animal Infos</h2>
       <div>
-        <h3>{data.animal.name}</h3>
+        <h3>{animal.name}</h3>
+        <p>Species: {animal.species}</p>
+        <p>Breed: {animal.breed}</p>
+        <p>Birth Date: {dateOnly}</p>
+        <p>Weight: {animal.weight} g</p>
+        <p>
+          Owner : {animal.persons.firstName} {animal.persons.lastName}
+        </p>
       </div>
     </div>
   );

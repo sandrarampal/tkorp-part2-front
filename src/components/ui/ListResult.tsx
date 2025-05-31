@@ -1,6 +1,6 @@
 type ListResultType = {
   name: string;
-  species: string;
+  species?: string;
 };
 
 const ListResult = (props: ListResultType) => {
