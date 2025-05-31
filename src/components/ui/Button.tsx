@@ -1,5 +1,3 @@
-import { type } from "os";
-
 type ButtonType = {
   content: string;
 };
@@ -7,7 +5,7 @@ type ButtonType = {
 const Button = (props: ButtonType) => {
   return (
     <div>
-      <button>{props.content}</button>
+      <p>{props.content}</p>
     </div>
   );
 };

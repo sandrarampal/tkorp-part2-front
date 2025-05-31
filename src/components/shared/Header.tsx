@@ -1,10 +1,12 @@
 import Button from "components/ui/Button";
+import Link from "next/link";
 
 const Header = () => {
   return (
     <div>
-      <p>Pet Owners Association</p>
-      <Button content="Back" />
+      <Link href="/">
+        <p>Pet Owners Association</p>
+      </Link>
     </div>
   );
 };

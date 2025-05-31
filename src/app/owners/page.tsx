@@ -1,3 +1,7 @@
 export default function Owners() {
-  return <div>Owners list</div>;
+  return (
+    <div>
+      <p>Owners list</p>
+    </div>
+  );
 }

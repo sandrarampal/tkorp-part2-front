@@ -1,3 +1,7 @@
 export default function Animals() {
-  return <div>Animals list</div>;
+  return (
+    <div>
+      <p>Animals list</p>
+    </div>
+  );
 }
