@@ -5,17 +5,51 @@
   margin-top: 50px;
 }
 
+.indCard h2 {
+  margin-bottom: 20px;
+}
+
 .infos {
-  border: solid black 1px;
+  box-shadow: var(--shadow-md);
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 10px;
+  height: 70%;
+  width: 25%;
+  background-color: var(--secondary);
 }
 
 .indCard button {
   padding: 10px;
+  background-color: var(--border);
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  color: var(--primary);
 }
 
 .indCard button:hover {
   cursor: pointer;
+  transform: scale(1.1);
+  color: white;
+}
+
+.animalOwned {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.owner {
+  display: flex;
+  gap: 8px;
+}
+
+.ownerName {
+  color: var(--border);
+}
+
+.ownerName:hover {
+  color: var(--text-primary);
 }

@@ -37,6 +37,7 @@
   color: var(--text-primary);
   border: none;
   transition: all 0.2s ease-in-out;
+  box-shadow: var(--shadow-sm);
 }
 
 .pageButton:hover {
@@ -49,6 +50,7 @@
 }
 
 .pageNumbers button {
+  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease-in-out;
 }
 

@@ -5,6 +5,7 @@ import Loader from "components/shared/Loader";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import styles from "../src/styles/pages/listPage.module.css";
 
 const getPersons = gql`
   query getPersons($offset: Int, $limit: Int) {
@@ -81,8 +82,8 @@ export default function Owners() {
   };
 
   return (
-    <div className="container">
-      <h2>Owners list</h2>
+    <div className={`container ${styles.listPage}`}>
+      <h2>Our beautiful pet Owners</h2>
       <Pagination
         totalCount={totalCount}
         loading={loading}

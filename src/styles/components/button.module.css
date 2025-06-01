@@ -1,5 +1,5 @@
 .button {
-  background-color: #ffbe58;
+  background-color: var(--border);
   padding: 10px;
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
@@ -7,8 +7,14 @@
 
 .button:hover {
   transform: scale(1.1);
+  color: white;
 }
 
 .button p {
-  color: black;
+  color: var(--primary);
+  font-size: 20px;
+}
+
+.button p:hover {
+  color: white;
 }

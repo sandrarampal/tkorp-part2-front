@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Button from "components/ui/Button";
+import Loader from "components/shared/Loader";
 
 import styles from "../../src/styles/pages/individualPage.module.css";
 
@@ -51,7 +52,7 @@ export default function OwnerDetailPage() {
     skip: !isReady || !id || isNaN(personId),
   });
 
-  if (loading) return <p>Loading Owners...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
   if (!isReady) {
@@ -70,16 +71,16 @@ export default function OwnerDetailPage() {
         <p>Email: {person.email}</p>
         <p>Phone Number: {person.phoneNumber}</p>
         <p>Animals</p>
-        {person.animals.map((animal: Animal) => (
-          <Link
-            href={`/animals/${animal.id}`}
-            style={{ textDecoration: "none" }}
-          >
-            <div>
+        <div className={styles.animalOwned}>
+          {person.animals.map((animal: Animal) => (
+            <Link
+              href={`/animals/${animal.id}`}
+              style={{ textDecoration: "none" }}
+            >
               <Button content={`${animal.name}`} />
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
       <button onClick={() => router.back()}>Back</button>
     </div>

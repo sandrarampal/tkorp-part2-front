@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Loader from "components/shared/Loader";
 import styles from "../../src/styles/pages/individualPage.module.css";
 
 const getAnimalById = gql`
@@ -51,7 +52,7 @@ export default function AnimalDetailPage() {
     skip: !isReady || !id || isNaN(animalId),
   });
 
-  if (loading) return <p>Chargement des animaux...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
   if (!isReady) {
@@ -71,11 +72,17 @@ export default function AnimalDetailPage() {
         <p>Breed: {animal.breed}</p>
         <p>Birth Date: {dateOnly}</p>
         <p>Weight: {animal.weight} g</p>
-        <Link href={`/owners/${animal.persons.id}`}>
-          <p>
-            Owner : {animal.persons.firstName} {animal.persons.lastName}
-          </p>
-        </Link>
+        <div className={styles.owner}>
+          <p>Owner:</p>
+          <Link
+            href={`/owners/${animal.persons.id}`}
+            style={{ textDecoration: "none" }}
+          >
+            <p className={styles.ownerName}>
+              {animal.persons.firstName} {animal.persons.lastName}
+            </p>
+          </Link>
+        </div>
       </div>
       <button onClick={() => router.back()}>Back</button>
     </div>
