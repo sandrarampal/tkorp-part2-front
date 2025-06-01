@@ -5,6 +5,7 @@ import Loader from "components/shared/Loader";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import styles from "../src/styles/pages/listPage.module.css";
 
 const getAnimals = gql`
   query getAnimals($offset: Int, $limit: Int) {
@@ -80,8 +81,15 @@ export default function Animals() {
   };
 
   return (
-    <div className="container">
-      <h2>Animals list</h2>
+    <div className={`container ${styles.listPage}`}>
+      <h2>Our cute friends</h2>
+      <Pagination
+        totalCount={totalCount}
+        loading={loading}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        onPageChange={handlePageChange}
+      />
       <div style={{ listStyle: "none", padding: 0 }}>
         {data?.animals.items.map((animal) => (
           <div key={animal.id}>
@@ -99,14 +107,6 @@ export default function Animals() {
           </div>
         ))}
       </div>
-      <Pagination
-        totalCount={totalCount}
-        currentPath="/animals"
-        loading={loading}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 }

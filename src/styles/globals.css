@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-primary);
+  background-color: var(--primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -20,4 +20,22 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-md);
+}
+
+/* === VARIABLES CSS === */
+:root {
+  /* Couleurs */
+  --primary: #f7e7ce;
+  --primary-gold: #fdc156;
+  --secondary: #bbbbbb;
+
+  /* Texte */
+  --text-primary: #000080;
+  --text-secondary: #4682b4;
+  --text-muted: #94a3b8;
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }

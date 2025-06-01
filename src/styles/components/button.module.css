@@ -2,6 +2,11 @@
   background-color: #ffbe58;
   padding: 10px;
   border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.1);
 }
 
 .button p {

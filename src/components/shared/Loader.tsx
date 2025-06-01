@@ -1,5 +1,11 @@
+import { PuffLoader } from "react-spinners";
+
 const Loader = () => {
-  return <div>Loading...</div>;
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <PuffLoader />;
+    </div>
+  );
 };
 
 export default Loader;

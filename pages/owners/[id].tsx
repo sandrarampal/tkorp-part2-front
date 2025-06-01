@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Button from "components/ui/Button";
 
 import styles from "../../src/styles/pages/individualPage.module.css";
 
@@ -70,10 +71,12 @@ export default function OwnerDetailPage() {
         <p>Phone Number: {person.phoneNumber}</p>
         <p>Animals</p>
         {person.animals.map((animal: Animal) => (
-          <Link href={`/animals/${animal.id}`}>
+          <Link
+            href={`/animals/${animal.id}`}
+            style={{ textDecoration: "none" }}
+          >
             <div>
-              <h3>{animal.name}</h3>
-              <p>{animal.species}</p>
+              <Button content={`${animal.name}`} />
             </div>
           </Link>
         ))}

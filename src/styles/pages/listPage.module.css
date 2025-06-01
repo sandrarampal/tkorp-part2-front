@@ -1,0 +1,8 @@
+.listPage > h2 {
+  text-align: center;
+  font-size: 30px;
+}
+
+.listPage {
+  margin-bottom: 40px;
+}

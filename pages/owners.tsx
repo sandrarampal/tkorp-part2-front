@@ -85,7 +85,6 @@ export default function Owners() {
       <h2>Owners list</h2>
       <Pagination
         totalCount={totalCount}
-        currentPath="/owners"
         loading={loading}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
@@ -93,7 +92,11 @@ export default function Owners() {
       />
       {data?.persons.items.map((person) => (
         <div key={person.id}>
-          <Link href={`/owners/${person.id}`} passHref>
+          <Link
+            href={`/owners/${person.id}`}
+            passHref
+            style={{ textDecoration: "none" }}
+          >
             <ListCard
               key={person.id}
               name={`${person.firstName} ${person.lastName}`}

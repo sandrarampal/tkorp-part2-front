@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
+import styles from "../../styles/components/pagination.module.css";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
 interface PaginationProps {
   totalCount: number;
-  currentPath: string;
   loading?: boolean;
   currentPage: number;
   itemsPerPage: number;
@@ -11,7 +11,6 @@ interface PaginationProps {
 
 export default function Pagination({
   totalCount,
-  currentPath,
   loading = false,
   currentPage,
   itemsPerPage,
@@ -20,52 +19,37 @@ export default function Pagination({
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "20px",
-          gap: "10px",
-        }}
+    <div className={styles.pagination}>
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage <= 1 || loading}
+        className={styles.pageButton}
       >
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage <= 1 || loading}
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-        >
-          Précédent
-        </button>
+        <MdNavigateBefore />
+      </button>
 
+      <div className={styles.pageNumbers}>
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button
             key={page}
             onClick={() => onPageChange(page)}
             disabled={loading}
-            style={{
-              padding: "8px 12px",
-              cursor: "pointer",
-              backgroundColor: currentPage === page ? "#0070f3" : "#f0f0f0",
-              color: currentPage === page ? "white" : "black",
-              border: currentPage === page ? "1px solid #0070f3" : "1px solid #ccc",
-            }}
+            className={
+              currentPage === page ? `${styles.focused}` : `${styles.unfocused}`
+            }
           >
             {page}
           </button>
         ))}
-
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage >= totalPages || loading}
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-        >
-          Suivant
-        </button>
       </div>
-      <p style={{ textAlign: "center", marginTop: "10px" }}>
-        Page {currentPage} sur {totalPages} {loading && "(Chargement...)"}
-      </p>
-    </>
+
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage >= totalPages || loading}
+        className={styles.pageButton}
+      >
+        <MdNavigateNext />
+      </button>
+    </div>
   );
 }
