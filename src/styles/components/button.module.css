@@ -1,0 +1,9 @@
+.button {
+  background-color: #ffbe58;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.button p {
+  color: black;
+}

@@ -1,6 +1,9 @@
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import Link from "next/link";
+
+import styles from "../../src/styles/pages/individualPage.module.css";
 
 const getPersonById = gql`
   query getPersonById($id: Int!) {
@@ -57,9 +60,9 @@ export default function OwnerDetailPage() {
   const person = data.person;
 
   return (
-    <div>
+    <div className={`container ${styles.indCard}`}>
       <h2>Owner Infos</h2>
-      <div>
+      <div className={styles.infos}>
         <h3>
           {person.firstName} {person.lastName}
         </h3>
@@ -67,12 +70,15 @@ export default function OwnerDetailPage() {
         <p>Phone Number: {person.phoneNumber}</p>
         <p>Animals</p>
         {person.animals.map((animal: Animal) => (
-          <div>
-            <h3>{animal.name}</h3>
-            <p>{animal.species}</p>
-          </div>
+          <Link href={`/animals/${animal.id}`}>
+            <div>
+              <h3>{animal.name}</h3>
+              <p>{animal.species}</p>
+            </div>
+          </Link>
         ))}
       </div>
+      <button onClick={() => router.back()}>Back</button>
     </div>
   );
 }

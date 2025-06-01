@@ -1,0 +1,12 @@
+.header {
+  margin-bottom: 30px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: lightgray solid 1px;
+}
+
+.homeLink {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

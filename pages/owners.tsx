@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import Link from "next/link";
-import ListResult from "components/ui/ListResult";
+import ListCard from "components/ui/ListCard";
+import Loader from "components/shared/Loader";
 
 const getPersons = gql`
   query getPersons {
@@ -25,32 +26,22 @@ interface Person {
 export default function Owners() {
   const { loading, error, data } = useQuery<{ persons: Person[] }>(getPersons);
 
-  if (loading) return <p>Chargement des animaux...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
   return (
-    <div>
-      <p>Owners list</p>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {data?.persons.map((person) => (
-          <li
-            key={person.id}
-            style={{
-              border: "1px solid #ccc",
-              margin: "10px 0",
-              padding: "10px",
-              borderRadius: "5px",
-            }}
-          >
-            <Link href={`/owners/${person.id}`} passHref>
-              <ListResult
-                key={person.id}
-                name={`${person.firstName} ${person.lastName}`}
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="container">
+      <h2>Owners list</h2>
+      {data?.persons.map((person) => (
+        <div key={person.id}>
+          <Link href={`/owners/${person.id}`} passHref>
+            <ListCard
+              key={person.id}
+              name={`${person.firstName} ${person.lastName}`}
+            />
+          </Link>
+        </div>
+      ))}
     </div>
   );
 }
