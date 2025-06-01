@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import ListCard from "components/ui/ListCard";
 import Link from "next/link";
 import Loader from "components/shared/Loader";
+import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
@@ -38,7 +39,6 @@ interface PaginatedAnimals {
 
 export default function Animals() {
   const router = useRouter();
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(50);
 
@@ -51,7 +51,7 @@ export default function Animals() {
     if (limitFromUrl !== itemsPerPage) {
       setItemsPerPage(limitFromUrl);
     }
-  }, [router.query.page, router.query.limit, currentPage, itemsPerPage]);
+  }, [router.query.page, router.query.limit]);
 
   const { loading, error, data } = useQuery<{ animals: PaginatedAnimals }>(
     getAnimals,
@@ -68,15 +68,11 @@ export default function Animals() {
 
   const totalCount = data?.animals.totalCount || 0;
 
-  const totalPages = Math.ceil(totalCount / itemsPerPage);
-
   const handlePageChange = async (newPage: number) => {
-    // Éviter de naviguer si la page est hors limites
-    if (newPage < 1 || newPage > totalPages) {
+    if (newPage < 1 || newPage > Math.ceil(totalCount / itemsPerPage)) {
       return;
     }
     setCurrentPage(newPage);
-    // Mettre à jour l'URL sans recharger la page pour garder l'état dans l'URL
     router.push({
       pathname: "/animals",
       query: { page: newPage, limit: itemsPerPage },
@@ -103,52 +99,14 @@ export default function Animals() {
           </div>
         ))}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "20px",
-          gap: "10px",
-        }}
-      >
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage <= 1 || loading} // Désactiver pendant le chargement
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-        >
-          Précédent
-        </button>
-
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page)}
-            disabled={loading} // Désactiver pendant le chargement
-            style={{
-              padding: "8px 12px",
-              cursor: "pointer",
-              backgroundColor: currentPage === page ? "#0070f3" : "#f0f0f0",
-              color: currentPage === page ? "white" : "black",
-              border:
-                currentPage === page ? "1px solid #0070f3" : "1px solid #ccc",
-            }}
-          >
-            {page}
-          </button>
-        ))}
-
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage >= totalPages || loading} // Désactiver pendant le chargement
-          style={{ padding: "8px 12px", cursor: "pointer" }}
-        >
-          Suivant
-        </button>
-      </div>
-      <p style={{ textAlign: "center", marginTop: "10px" }}>
-        Page {currentPage} sur {totalPages} {loading && "(Chargement...)"}
-      </p>
+      <Pagination
+        totalCount={totalCount}
+        currentPath="/animals"
+        loading={loading}
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
