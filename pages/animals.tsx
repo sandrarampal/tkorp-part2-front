@@ -1,26 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import ListCard from "components/ui/ListCard";
 import Link from "next/link";
-import Loader from "components/shared/Loader";
+import Loader from "components/ui/Loader";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { GET_ANIMALS } from "../src/api/animalQueries";
 import styles from "../src/styles/pages/listPage.module.css";
-
-const getAnimals = gql`
-  query getAnimals($offset: Int, $limit: Int) {
-    animals(offset: $offset, limit: $limit) {
-      items {
-        id
-        name
-        species
-      }
-      totalCount
-      offset
-      limit
-    }
-  }
-`;
 
 interface Animal {
   id: number;
@@ -55,7 +41,7 @@ export default function Animals() {
   }, [router.query.page, router.query.limit]);
 
   const { loading, error, data } = useQuery<{ animals: PaginatedAnimals }>(
-    getAnimals,
+    GET_ANIMALS,
     {
       variables: {
         offset: (currentPage - 1) * itemsPerPage,

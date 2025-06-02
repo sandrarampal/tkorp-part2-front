@@ -1,27 +1,9 @@
-import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Loader from "components/shared/Loader";
+import Loader from "components/ui/Loader";
+import { GET_ANIMAL_BY_ID } from "../../src/api/animalQueries";
 import styles from "../../src/styles/pages/individualPage.module.css";
-
-const getAnimalById = gql`
-  query getAnimalById($id: Int!) {
-    animal(id: $id) {
-      id
-      name
-      species
-      dateOfBirth
-      breed
-      weight
-      persons {
-        id
-        firstName
-        lastName
-      }
-    }
-  }
-`;
 
 interface Person {
   id: number;
@@ -47,7 +29,7 @@ export default function AnimalDetailPage() {
   const isReady = router.isReady;
 
   const animalId = parseInt(id as string, 10);
-  const { loading, error, data } = useQuery(getAnimalById, {
+  const { loading, error, data } = useQuery(GET_ANIMAL_BY_ID, {
     variables: { id: animalId },
     skip: !isReady || !id || isNaN(animalId),
   });

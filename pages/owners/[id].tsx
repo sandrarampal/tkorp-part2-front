@@ -1,37 +1,10 @@
-import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Button from "components/ui/Button";
-import Loader from "components/shared/Loader";
+import Loader from "components/ui/Loader";
+import { GET_PERSON_BY_ID } from "../../src/api/ownerQueries";
 
 import styles from "../../src/styles/pages/individualPage.module.css";
-
-const getPersonById = gql`
-  query getPersonById($id: Int!) {
-    person(id: $id) {
-      id
-      firstName
-      lastName
-      email
-      phoneNumber
-      animals {
-        id
-        name
-        species
-      }
-    }
-  }
-`;
-
-interface Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  animals: Animal;
-}
 
 interface Animal {
   id: number;
@@ -47,7 +20,7 @@ export default function OwnerDetailPage() {
   const isReady = router.isReady;
 
   const personId = parseInt(id as string, 10);
-  const { loading, error, data } = useQuery(getPersonById, {
+  const { loading, error, data } = useQuery(GET_PERSON_BY_ID, {
     variables: { id: personId },
     skip: !isReady || !id || isNaN(personId),
   });
@@ -72,14 +45,22 @@ export default function OwnerDetailPage() {
         <p>Phone Number: {person.phoneNumber}</p>
         <p>Animals</p>
         <div className={styles.animalOwned}>
-          {person.animals.map((animal: Animal) => (
-            <Link
-              href={`/animals/${animal.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button content={`${animal.name}`} />
-            </Link>
-          ))}
+          {person.animals.length === 0 ? (
+            <p>No animal for this owner</p>
+          ) : (
+            person.animals.map((animal: Animal) => (
+              <Link
+                href={`/animals/${animal.id}`}
+                style={{ textDecoration: "none" }}
+                key={animal.id}
+              >
+                <button>
+                  <span>{animal.name}</span>
+                  <span className={styles.species}>({animal.species})</span>
+                </button>
+              </Link>
+            ))
+          )}
         </div>
       </div>
       <button onClick={() => router.back()}>Back</button>

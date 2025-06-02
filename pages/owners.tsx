@@ -1,28 +1,12 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import ListCard from "components/ui/ListCard";
-import Loader from "components/shared/Loader";
+import Loader from "components/ui/Loader";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { GET_PERSONS } from "../src/api/ownerQueries";
 import styles from "../src/styles/pages/listPage.module.css";
-
-const getPersons = gql`
-  query getPersons($offset: Int, $limit: Int) {
-    persons(offset: $offset, limit: $limit) {
-      items {
-        id
-        firstName
-        lastName
-        email
-        phoneNumber
-      }
-      totalCount
-      offset
-      limit
-    }
-  }
-`;
 
 interface Person {
   id: number;
@@ -56,7 +40,7 @@ export default function Owners() {
   }, [router.query.page, router.query.limit]);
 
   const { loading, error, data } = useQuery<{ persons: PaginatedPersons }>(
-    getPersons,
+    GET_PERSONS,
     {
       variables: {
         offset: (currentPage - 1) * itemsPerPage,

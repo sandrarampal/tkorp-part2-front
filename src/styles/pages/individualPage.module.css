@@ -3,53 +3,134 @@
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  min-height: calc(100vh - 200px);
+  padding: 20px;
 }
 
 .indCard h2 {
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
 }
 
 .infos {
   box-shadow: var(--shadow-md);
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 10px;
-  height: 70%;
-  width: 25%;
+  margin-bottom: 30px;
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
   background-color: var(--secondary);
+  transition: transform 0.3s ease;
+}
+
+.infos:hover {
+  transform: translateY(-5px);
+}
+
+.infos h3 {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.infos p {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 15px 0;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.infos p:last-of-type {
+  border-bottom: none;
 }
 
 .indCard button {
-  padding: 10px;
+  padding: 12px 25px;
   background-color: var(--border);
-  padding: 10px;
   border-radius: 10px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease;
   border: none;
-  color: var(--primary);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 .indCard button:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background-color: var(--primary);
 }
 
 .animalOwned {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.animalOwned a {
+  text-decoration: none;
+}
+
+.animalOwned button {
+  background-color: var(--secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 150px;
+  justify-content: center;
+}
+
+.animalOwned button:hover {
+  background-color: var(--border);
+  color: white;
+  border-color: var(--primary);
+}
+
+.animalOwned button .species {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.animalOwned button:hover .species {
+  opacity: 1;
 }
 
 .owner {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--background);
+  border-radius: 10px;
+}
+
+.owner p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
 }
 
 .ownerName {
-  color: var(--border);
+  color: var(--primary);
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .ownerName:hover {
-  color: var(--text-primary);
+  color: var(--border);
 }
