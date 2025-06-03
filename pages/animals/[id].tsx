@@ -11,16 +11,6 @@ interface Person {
   lastName: string;
 }
 
-interface Animal {
-  id: number;
-  name: string;
-  dateOfBirth: Date;
-  species: string;
-  breed: string;
-  weight: number;
-  persons: Person;
-}
-
 export default function AnimalDetailPage() {
   const router = useRouter();
   const { id } = router.query;

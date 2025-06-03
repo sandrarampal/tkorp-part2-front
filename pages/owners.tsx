@@ -38,7 +38,7 @@ export default function Owners() {
     if (limitFromUrl !== itemsPerPage) {
       setItemsPerPage(limitFromUrl);
     }
-  }, [router.query.page, router.query.limit]);
+  }, [router.query.page, router.query.limit, currentPage, itemsPerPage]);
 
   //Récupération des propriétaires avec les paramètres de pagination
   const { loading, error, data } = useQuery<{ persons: PaginatedPersons }>(

@@ -39,7 +39,7 @@ export default function Animals() {
     if (limitFromUrl !== itemsPerPage) {
       setItemsPerPage(limitFromUrl);
     }
-  }, [router.query.page, router.query.limit]);
+  }, [router.query.page, router.query.limit, currentPage, itemsPerPage]);
 
   //Récupération des animaux avec les paramètres de pagination
   const { loading, error, data } = useQuery<{ animals: PaginatedAnimals }>(
