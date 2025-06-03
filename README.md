@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pet Owners Association
 
-## Getting Started
+Application web de gestion des propriétaires d'animaux et de leurs compagnons.
 
-First, run the development server:
+## 🌐 Application en ligne
 
+L'application est déployée et accessible à l'adresse : [https://petowners-assc.netlify.app/]
+
+## 🚀 Fonctionnalités
+
+### Gestion des Propriétaires
+- Liste paginée des propriétaires d'animaux
+- Détails complets de chaque propriétaire :
+  - Nom et prénom
+  - Coordonnées (email, téléphone)
+  - Liste des animaux associés
+
+### Gestion des Animaux
+- Liste paginée des animaux
+- Détails complets de chaque animal :
+  - Nom
+  - Espèce
+  - Race
+  - Date de naissance
+  - Poids
+  - Propriétaire associé
+
+## 🛠️ Technologies utilisées
+
+- **Frontend** :
+  - Next.js
+  - TypeScript
+  - Apollo Client
+  - CSS Modules
+  - GraphQL
+
+- **Backend** :
+  - GraphQL
+  - mySQL
+  - NestJs
+
+## 🏗️ Installation
+
+1. Cloner le repository :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [URL_DU_REPO]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installer les dépendances :
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Lancer l'application en mode développement :
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📝 Structure du projet
 
-## Learn More
+```
+├── pages/              # Pages de l'application
+├── src/
+│   ├── api/           # Requêtes GraphQL
+│   ├── components/    # Composants React
+│   │   ├── shared/    # Composants partagés
+│   │   └── ui/        # Composants UI
+│   └── styles/        # Styles CSS
+└── public/            # Fichiers statiques
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🔄 Fonctionnement
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+L'application utilise une architecture client-serveur avec GraphQL :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Le frontend Next.js gère l'interface utilisateur et les interactions
+2. Les requêtes GraphQL sont utilisées pour communiquer avec le backend
+3. La pagination est gérée côté client pour une meilleure expérience utilisateur
+4. Les données sont mises en cache par Apollo Client.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
