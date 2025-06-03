@@ -1,0 +1,10 @@
+/animals/*  /animals/[id]  200
+
+/owners/*  /owners/[id]  200
+
+# /animals.tsx, /owners.tsx, /index.tsx, /test.tsx sont gérées automatiquement
+
+# /home  /  301
+# /animal/*  /animals/:splat  301
+
+/*  /index.html  200
