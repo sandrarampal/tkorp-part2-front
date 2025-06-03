@@ -5,11 +5,6 @@ import Loader from "components/ui/Loader";
 import { GET_ANIMAL_BY_ID } from "../../src/api/animalQueries";
 import styles from "../../src/styles/pages/individualPage.module.css";
 
-interface Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
 
 export default function AnimalDetailPage() {
   const router = useRouter();
