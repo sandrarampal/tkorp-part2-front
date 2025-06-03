@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
-import ListCard from "components/ui/ListCard";
+import ListCard from "components/shared/ListCard";
 import Loader from "components/ui/Loader";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
@@ -29,6 +29,7 @@ export default function Owners() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
 
   useEffect(() => {
+    //Mise à jour des paramètres de pagination lors du changement de page
     const pageFromUrl = parseInt((router.query.page as string) || "1");
     const limitFromUrl = parseInt((router.query.limit as string) || "50");
     if (pageFromUrl !== currentPage) {
@@ -39,6 +40,7 @@ export default function Owners() {
     }
   }, [router.query.page, router.query.limit]);
 
+  //Récupération des propriétaires avec les paramètres de pagination
   const { loading, error, data } = useQuery<{ persons: PaginatedPersons }>(
     GET_PERSONS,
     {
@@ -54,6 +56,7 @@ export default function Owners() {
 
   const totalCount = data?.persons.totalCount || 0;
 
+  //Gestion du changement de page
   const handlePageChange = async (newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalCount / itemsPerPage)) {
       return;

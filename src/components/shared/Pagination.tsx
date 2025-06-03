@@ -6,6 +6,7 @@ interface PaginationProps {
   loading?: boolean;
   currentPage: number;
   itemsPerPage: number;
+  //Fonction de changement de page en props
   onPageChange: (newPage: number) => void;
 }
 
@@ -16,6 +17,7 @@ export default function Pagination({
   itemsPerPage,
   onPageChange,
 }: PaginationProps) {
+  //Calcul du nombre de pages
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
@@ -29,6 +31,7 @@ export default function Pagination({
       </button>
 
       <div className={styles.pageNumbers}>
+        {/* Génération des boutons de pagination */}
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
           <button
             key={page}

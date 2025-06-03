@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import ListCard from "components/ui/ListCard";
+import ListCard from "components/shared/ListCard";
 import Link from "next/link";
 import Loader from "components/ui/Loader";
 import Pagination from "../src/components/shared/Pagination";
@@ -30,6 +30,7 @@ export default function Animals() {
   const [itemsPerPage, setItemsPerPage] = useState(50);
 
   useEffect(() => {
+    //Mise à jour des paramètres de pagination lors du changement de page ou de limit
     const pageFromUrl = parseInt((router.query.page as string) || "1");
     const limitFromUrl = parseInt((router.query.limit as string) || "50");
     if (pageFromUrl !== currentPage) {
@@ -40,6 +41,7 @@ export default function Animals() {
     }
   }, [router.query.page, router.query.limit]);
 
+  //Récupération des animaux avec les paramètres de pagination
   const { loading, error, data } = useQuery<{ animals: PaginatedAnimals }>(
     GET_ANIMALS,
     {
@@ -53,8 +55,10 @@ export default function Animals() {
   if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
+  //Récupération du nombre total d'animaux
   const totalCount = data?.animals.totalCount || 0;
 
+  //Gestion du changement de page
   const handlePageChange = async (newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalCount / itemsPerPage)) {
       return;

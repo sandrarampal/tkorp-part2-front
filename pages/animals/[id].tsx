@@ -25,9 +25,10 @@ export default function AnimalDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  //Attendre que le routeur soit prêt à afficher les résultats.
+  //Attendre que le routeur soit prêt à afficher les résultats, en cas d'actualisation de la page.
   const isReady = router.isReady;
 
+  //Récupération de l'id de l'animal
   const animalId = parseInt(id as string, 10);
   const { loading, error, data } = useQuery(GET_ANIMAL_BY_ID, {
     variables: { id: animalId },
@@ -37,17 +38,18 @@ export default function AnimalDetailPage() {
   if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
+  //Si le routeur n'est pas prêt, afficher un loader.
   if (!isReady) {
-    return <p>Chargement des animaux...</p>;
+    return <Loader />;
   }
 
   const animal = data.animal;
 
+  //Conversion de la date de naissance de l'animal en format DD/MM/YYYY
   const dateOnly = animal.dateOfBirth.slice(0, 10);
 
   return (
     <div className={`container ${styles.indCard}`}>
-      <h2>Animal Infos</h2>
       <div className={styles.infos}>
         <h3>{animal.name}</h3>
         <p>Species: {animal.species}</p>

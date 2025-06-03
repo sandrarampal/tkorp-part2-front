@@ -1,12 +1,13 @@
 .header {
   margin-bottom: 30px;
-  margin-top: 10px;
+  padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: #8d6f57 solid 1px;
+  background-color: var(--border);
+  box-shadow: var(--shadow-md);
 }
 
 .homeLink {
-  color: var(--text-primary);
+  color: var(--primary);
   display: flex;
   align-items: center;
   gap: 20px;

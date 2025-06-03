@@ -16,7 +16,7 @@ export default function OwnerDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  //Attendre que le routeur soit prêt à afficher les résultats.
+  //Attendre que le routeur soit prêt à afficher les résultats, en cas d'actualisation de la page.
   const isReady = router.isReady;
 
   const personId = parseInt(id as string, 10);
@@ -25,18 +25,20 @@ export default function OwnerDetailPage() {
     skip: !isReady || !id || isNaN(personId),
   });
 
+  //Si le chargement est en cours, afficher un loader.
   if (loading) return <Loader />;
   if (error) return <p>Erreur : {error.message}</p>;
 
+  //Attendre que le routeur soit prêt à afficher les résultats.
+  //Si le routeur n'est pas prêt, afficher un loader.
   if (!isReady) {
-    return <p>Loading Owners...</p>;
+    return <Loader />;
   }
 
   const person = data.person;
 
   return (
     <div className={`container ${styles.indCard}`}>
-      <h2>Owner Infos</h2>
       <div className={styles.infos}>
         <h3>
           {person.firstName} {person.lastName}
