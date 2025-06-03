@@ -14,10 +14,12 @@
   border-radius: 50%;
   background-color: var(--primary-gold);
   color: white;
+  box-shadow: var(--shadow-sm);
   border: none;
 }
 
 .unfocused {
+  box-shadow: var(--shadow-sm);
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -50,10 +52,18 @@
 }
 
 .pageNumbers button {
-  box-shadow: var(--shadow-sm);
   transition: all 0.2s ease-in-out;
 }
 
 .pageNumbers button:hover {
   transform: scale(1.2);
+}
+
+.ellipsis {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: bold;
 }
