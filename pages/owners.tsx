@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import ListCard from "components/shared/ListCard";
 import Loader from "components/ui/Loader";
+import ErrorDisplay from "components/ui/ErrorDisplay";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -41,7 +42,7 @@ export default function Owners() {
   }, [router.query.page, router.query.limit, currentPage, itemsPerPage]);
 
   //Récupération des propriétaires avec les paramètres de pagination
-  const { loading, error, data } = useQuery<{ persons: PaginatedPersons }>(
+  const { loading, error, data, refetch } = useQuery<{ persons: PaginatedPersons }>(
     GET_PERSONS,
     {
       variables: {
@@ -52,7 +53,7 @@ export default function Owners() {
   );
 
   if (loading) return <Loader />;
-  if (error) return <p>Erreur : {error.message}</p>;
+  if (error) return <ErrorDisplay message={error.message} onRetry={() => refetch()} />;
 
   const totalCount = data?.persons.totalCount || 0;
 

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import ListCard from "components/shared/ListCard";
 import Link from "next/link";
 import Loader from "components/ui/Loader";
+import ErrorDisplay from "components/ui/ErrorDisplay";
 import Pagination from "../src/components/shared/Pagination";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -42,7 +43,7 @@ export default function Animals() {
   }, [router.query.page, router.query.limit, currentPage, itemsPerPage]);
 
   //Récupération des animaux avec les paramètres de pagination
-  const { loading, error, data } = useQuery<{ animals: PaginatedAnimals }>(
+  const { loading, error, data, refetch } = useQuery<{ animals: PaginatedAnimals }>(
     GET_ANIMALS,
     {
       variables: {
@@ -53,7 +54,7 @@ export default function Animals() {
   );
 
   if (loading) return <Loader />;
-  if (error) return <p>Erreur : {error.message}</p>;
+  if (error) return <ErrorDisplay message={error.message} onRetry={() => refetch()} />;
 
   //Récupération du nombre total d'animaux
   const totalCount = data?.animals.totalCount || 0;

@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Loader from "components/ui/Loader";
+import ErrorDisplay from "components/ui/ErrorDisplay";
 import { GET_ANIMAL_BY_ID } from "../../src/api/animalQueries";
 import styles from "../../src/styles/pages/individualPage.module.css";
 
@@ -15,13 +16,13 @@ export default function AnimalDetailPage() {
 
   //Récupération de l'id de l'animal
   const animalId = parseInt(id as string, 10);
-  const { loading, error, data } = useQuery(GET_ANIMAL_BY_ID, {
+  const { loading, error, data, refetch } = useQuery(GET_ANIMAL_BY_ID, {
     variables: { id: animalId },
     skip: !isReady || !id || isNaN(animalId),
   });
 
   if (loading) return <Loader />;
-  if (error) return <p>Erreur : {error.message}</p>;
+  if (error) return <ErrorDisplay message={error.message} onRetry={() => refetch()} />;
 
   //Si le routeur n'est pas prêt, afficher un loader.
   if (!isReady) {

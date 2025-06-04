@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Loader from "components/ui/Loader";
+import ErrorDisplay from "components/ui/ErrorDisplay";
 import { GET_PERSON_BY_ID } from "../../src/api/ownerQueries";
 
 import styles from "../../src/styles/pages/individualPage.module.css";
@@ -20,14 +21,14 @@ export default function OwnerDetailPage() {
   const isReady = router.isReady;
 
   const personId = parseInt(id as string, 10);
-  const { loading, error, data } = useQuery(GET_PERSON_BY_ID, {
+  const { loading, error, data, refetch } = useQuery(GET_PERSON_BY_ID, {
     variables: { id: personId },
     skip: !isReady || !id || isNaN(personId),
   });
 
   //Si le chargement est en cours, afficher un loader.
   if (loading) return <Loader />;
-  if (error) return <p>Erreur : {error.message}</p>;
+  if (error) return <ErrorDisplay message={error.message} onRetry={() => refetch()} />;
 
   //Attendre que le routeur soit prêt à afficher les résultats.
   //Si le routeur n'est pas prêt, afficher un loader.
