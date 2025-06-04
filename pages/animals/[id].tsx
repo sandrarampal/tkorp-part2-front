@@ -22,6 +22,7 @@ export default function AnimalDetailPage() {
   });
 
   if (loading) return <Loader />;
+  //En cas d'erreur, permettre à l'utilisateur de relancer la requête
   if (error) return <ErrorDisplay message={error.message} onRetry={() => refetch()} />;
 
   //Si le routeur n'est pas prêt, afficher un loader.
@@ -34,6 +35,9 @@ export default function AnimalDetailPage() {
   //Conversion de la date de naissance de l'animal en format DD/MM/YYYY
   const dateOnly = animal.dateOfBirth.slice(0, 10);
 
+  //Convertir le poids en kg pour une meilleure lisibilité
+  const weightInKilos = animal.weight/1000;
+
   return (
     <div className={`container ${styles.indCard}`}>
       <div className={styles.infos}>
@@ -41,7 +45,7 @@ export default function AnimalDetailPage() {
         <p>Species: {animal.species}</p>
         <p>Breed: {animal.breed}</p>
         <p>Birth Date: {dateOnly}</p>
-        <p>Weight: {animal.weight} g</p>
+        <p>Weight: {weightInKilos} kg</p>
         <div className={styles.owner}>
           <p>Owner:</p>
           <Link
